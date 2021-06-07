@@ -8,36 +8,89 @@ class Operator extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('form');
 		$this->load->helper('url');
+		$this->load->model('modOperator');
 	}
 	public function index()
 	{
-		//$this->load->view('listbahanbaku');
-		if($this->input->post('btnAdd')) {
-			$nolist 					= $this->input->post('txtnolist');
-			$productdescription 		= $this->input->post('txtproductdesc');
-			$quantity 					=$this->input->post('txtquantity'); 
-			echo $nolist;
-			echo $productdescription;
-			echo $quantity; 
+		$data['dataoperator'] = $this->modOperator->select_operator();
+		$this->load->view('showoperator', $data);
+		
+	}
+
+	public function masteroperator()
+	{
+		if($this->input->post('btnAdd_opt')) {
+            $kodekaryawan = $this->input->post('txtkodekaryawan');
+            $kodecabang = $this->input->post('txtkodecabang'); 
+            $username = $this->input->post('txtusername');
+            $password = $this->input->post('txtpass');
+			$nama = $this->input->post('txtnamakaryawan');
+			$mulaikerja = $this->input->post('txtmulaikerja');
+			$nomerid = $this->input->post('txtnoidentitaskaryawan');
+			$nomertelp = $this->input->post('txttelpkaryawan');
+			$jabatan = $this->input->post('txtjabatankaryawan');
+			$status = $this->input->post('txtstatuskaryawan');	
+
+			$this->modOperator->insert_operator($kodekaryawan, $kodecabang, $username, $password, $nama, $mulaikerja, $nomerid, $nomertelp, $jabatan, $status);
+
+			$data['dataoperator'] = $this->modOperator->select_operator();
+			$this->load->view('showoperator',$data); 
 		}
-		else if($this->input->post('btnUpdate')){
-			$nolist 					= $this->input->post('txtnolist');
-			$productdescription 		= $this->input->post('txtproductdesc');
-			$quantity 					=$this->input->post('txtquantity'); 
-			echo $nolist;
-			echo $productdescription;
-			echo $quantity; 
-		}
-		else if($this->input->post('btnRemove')){
-			$nolist 					= $this->input->post('txtnolist');
-			$productdescription 		= $this->input->post('txtproductdesc');
-			$quantity 					=$this->input->post('txtquantity'); 
-			echo $nolist;
-			echo $productdescription;
-			echo $quantity; 
+		else if($this->input->post('btnUpdate_opt'))
+		{
+            $kodekaryawan = $this->input->post('txtkodekaryawan');
+            $kodecabang = $this->input->post('txtkodecabang'); 
+            $username = $this->input->post('txtusername');
+            $password = $this->input->post('txtpass');
+			$nama = $this->input->post('txtnamakaryawan');
+			$mulaikerja = $this->input->post('txtmulaikerja');
+			$nomerid = $this->input->post('txtnoidentitaskaryawan');
+			$nomertelp = $this->input->post('txttelpkaryawan');
+			$jabatan = $this->input->post('txtjabatankaryawan');
+			$status = $this->input->post('txtstatuskaryawan');
+			
+			$this->modOperator->update_admin($kodekaryawan, $kodecabang, $username, $password, $nama, $mulaikerja, $nomerid, $nomertelp, $jabatan, $status);
+
+			$data['dataoperator'] = $this->modOperator->select_operator();
+			$this->load->view('showoperator',$data);
 		}
 		else {
-			$this->load->view('masteroperator');
+			//$this->load->view('masteroperator'); 
+			$param['kodekaryawan'] 		= "";
+			$param['kodecabang'] 		= "";
+			$param['username'] 			= "";
+			$param['password'] 			= "";
+			$param['nama'] 				= "";
+			$param['tanggalmulai'] 		= "";
+			$param['noidentitas'] 		= "";
+			$param['nomertelp'] 		= "";
+			//$param['jabatan'] 		= "";
+			$param['status'] 			= "";
+
+			$this->load->view('masteroperator', $param);
 		}
 	}
+
+	public function editkaryawan()
+	{
+		$kodekaryawan	= $this->input->post('kode');
+		echo $kodekaryawan;
+		$detail 	= $this->modOperator->selectKaryawanByKode($kodekaryawan); 
+		echo $detail->num_rows(); 
+		foreach($detail->result() as $row) {
+			$param['kodekaryawan'] 		= $row->kodekaryawan;
+			$param['kodecabang'] 		= $row->kodecabang;
+			$param['username'] 			= $row->username;
+			$param['password'] 			= $row->password;
+			$param['nama'] 				= $row->nama;
+			$param['tanggalmulai'] 		= $row->tanggalmulai;
+			$param['noidentitas'] 		= $row->noidentitas;
+			$param['nomertelp'] 		= $row->nomertelp;
+			//$param['jabatan'] 		= $row->jabatan;
+			$param['status'] 			= $row->status;
+		}
+
+		$this->load->view('masteroperator', $param);
+	}
+
 }
