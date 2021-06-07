@@ -50,18 +50,19 @@
                               </div>
                               <br><br>
                               <div class="row">
-                                <div class="col-md-10"> 
+                                <div class="col-md-12"> 
                                   <div class="card-body">
                                     <table class="table table-splitted">
                                     <thead>
                                         <tr>
-                                        <th class="tengahtulisan">Kode Cabang</th>
-                                        <th class="tengahtulisan">Nama Cabang</th>
-                                        <th class="tengahtulisan">Alamat</th>
-                                        <th class="tengahtulisan">Kota</th>
-                                        <th class="tengahtulisan">Tanggal Berdiri</th>
-                                        <th class="tengahtulisan">Nomer Telepon</th>
-                                        <th class="tengahtulisan">Jenis</th>
+                                          <th class="tengahtulisan">Kode Cabang</th>
+                                          <th class="tengahtulisan">Nama Cabang</th>
+                                          <th class="tengahtulisan">Alamat</th>
+                                          <th class="tengahtulisan">Kota</th>
+                                          <th class="tengahtulisan">Tanggal Berdiri</th>
+                                          <th class="tengahtulisan">Nomer Telepon</th>
+                                          <th class="tengahtulisan">Jenis</th>
+                                          <th class="tengahtulisan">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="divKanan">

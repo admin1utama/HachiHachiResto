@@ -37,17 +37,17 @@ class Paketmenu extends CI_Controller {
 			{
 				$this->modPaketMenu->insert_paketmenu($kodepaket, $namapaket, $hargapaket, $status);
 
-				$data['datapaketmenu'] = $this->modPaketMenu->select_all();
+				$data['datapaketmenu'] = $this->modPaketMenu->select_all_without_detail();
 				$this->load->view('masterPaketMenu',$data);  
 			}
 			else
 			{
-				$data['datapaketmenu'] = $this->modPaketMenu->select_all();
+				$data['datapaketmenu'] = $this->modPaketMenu->select_all_without_detail();
 				$this->load->view('masterPaketMenu',$data);  
 			}
 		}
         else{
-            $data['datapaketmenu'] = $this->modPaketMenu->select_all();
+            $data['datapaketmenu'] = $this->modPaketMenu->select_all_without_detail();
 			$this->load->view('masterPaketMenu',$data);  
         }
 	}
@@ -55,14 +55,14 @@ class Paketmenu extends CI_Controller {
 	function blockmenu($kodepaket)
     {
 		$this->modPaketMenu->blockmenu($kodepaket); 
-		$data['datapaketmenu'] = $this->modPaketMenu->select_all();
+		$data['datapaketmenu'] = $this->modPaketMenu->select_all_without_detail();
 		$this->load->view('masterPaketMenu',$data);  
 	}
 
 	function unblockmenu($kodepaket)
     {
 		$this->modPaketMenu->unblockmenu($kodepaket); 
-		$data['datapaketmenu'] = $this->modPaketMenu->select_all();
+		$data['datapaketmenu'] = $this->modPaketMenu->select_all_without_detail();
 		$this->load->view('masterPaketMenu',$data);  
 	}
 	

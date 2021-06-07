@@ -97,7 +97,7 @@ class modDistribusiKeluar extends CI_Model {
          $kdcabang  = $kode;
     
          //update stok cabang
-         $this->db->set('stok','stok+'.$qty, FALSE);
+         $this->db->set('stok','stok-'.$qty, FALSE);
          $this->db->where('kodecabang', $kdcabang);
          $this->db->where('kodebahan', $kodebahan);
          $this->db->update('stokcabang');

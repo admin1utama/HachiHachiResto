@@ -14,7 +14,7 @@ class modPenyesuaianStok extends CI_Model {
     
     public function SelectBahanBakuOutlet($kode)
     {
-        return $this->db->query("select stokcabang.*, bahan.namabahan from stokcabang, bahan where stokcabang.kodecabang='$kode' and stokcabang.kodebahan = bahan.kodebahan");
+        return $this->db->query("select stokcabang.*, bahan.namabahan from stokcabang, bahan where stokcabang.kodecabang='$kode' and stokcabang.kodebahan = bahan.kodebahan order by namabahan ASC");
     }
 
     public function selectstok($idbahan)

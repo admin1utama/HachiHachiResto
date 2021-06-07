@@ -10,33 +10,40 @@ class LaporanDistribusiMasuk extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->helper('url');
 		$this->load->model('modLaporanDistribusiMasuk');
+		$this->load->model('modCabang'); 
+		$this->load->model('modBahan'); 
 		$this->load->library('session'); 
 	}
 	public function index()
 	{
-		//$data['databahan'] = $this->modBahan->select_kategori_bahanbaku();
-		$this->load->view('showLaporanDistribusiMasuk');
-
+		if($this->session->userdata('jabatan') == 'ADMIN') 
+		{ $params['datacabang'] = $this->modCabang->select_cabang(); }
+		else 
+		{ 
+			$kode = $this->session->userdata('codecabang');
+			$params['datacabang'] = $this->modBahan->selectcabang($kode); 
+		}
+		$this->load->view('showLaporanDistribusiMasuk', $params);
     }
     
     public function getFilter()
 	{
-		//echo "testinggggg";
+		$kodecabang = $this->input->post("kodecabang"); 
         $awal = $this->input->post("tglawal");
         $akhir = $this->input->post("tglakhir");
         //echo $awal;
-		$bhnbaku 	= $this->modLaporanDistribusiMasuk->selecttransaksi($awal,$akhir);
+		$bhnbaku 	= $this->modLaporanDistribusiMasuk->selecttransaksi_bykodecabang($kodecabang, $awal,$akhir);
         //echo count($bhnbaku->result());
 
 		
 		$nomer =1;
 		foreach($bhnbaku->result() as $row)
 		{
-            echo form_input("kode",$row->nomernota);
+			echo "<input type='hidden' name='kode' id='kode' value='".$row->nomernota."'>"; 
             $kode = $this->input->post("kode");
-            echo $kode;
+            //echo $kode;
             $datacart 	= $this->modLaporanDistribusiMasuk->selectdataforcart($kode);
-            echo $datacart->num_rows();
+            //echo $datacart->num_rows();
             echo "<tr>"; 
             echo "<th>"; 
               echo "<h5 style='color:red; font-weight: bold;'>Nota : ".$row->nomernota."</h5>"; 

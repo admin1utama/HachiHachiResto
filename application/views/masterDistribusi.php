@@ -233,9 +233,10 @@
   function lihatstok()
   {
     //alert("masuk sini");
+    var kodecabang = $("#txtcabangasal").val(); 
     var idbahan = $("#dropBahanBaku").val();
-    $.post(myurl + "/PemesananBahan/getStok",
-      { idbahan:idbahan },
+    $.post(myurl + "/PemesananBahan/getStok_bycabang",
+      { kodecabang: kodecabang, idbahan:idbahan },
       function(res){
         //alert(res);
         $("#divStok").html(res);

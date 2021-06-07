@@ -42,7 +42,7 @@ class modDistribusi extends CI_Model {
             'tanggal'  => $tanggal, //date("Y-m-d"),
             'kodecabangasal' => strtoupper($asal),
             'kodecabangtujuan' => strtoupper($tujuan),
-            'status'  => 'TERKIRIM'
+            'status'  => 'AKTIF'
 		 );
          $this->db->insert('hdistribusi', $data);
          return $nomernota; 

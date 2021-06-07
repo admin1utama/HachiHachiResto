@@ -69,7 +69,7 @@
                                               echo "<th><h3 style='font-weight: bold;'>".$row->jumitem." items</h3><th>";
                                               echo "<th><h3 style='font-weight: bold;'>Rp. ".number_format($row->grandtotal).",-</h3><th>";
                                               echo "<th><a target='_blank' href='".site_url('Penjualan/cetaknota/'.$row->nomernota)."'> 
-                                              <i class='icon_printer-alt'></i></a><th>";
+                                              <img src='".base_url('asset/img/print.png')."'style='width:50px'></a><th>";
                                               //echo "<th><h3 style='font-weight: bold;'>".$row->status."</h3><th>";
                                             echo "</tr>"; 
                                             echo form_close();

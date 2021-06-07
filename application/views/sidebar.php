@@ -119,6 +119,12 @@
                 <li><a class="" href="<?php echo site_url('Bahan/kartustok'); ?>">Kartu Stok</a></li>
               </ul>
             </li>
+            <li class="active">
+            <a class="" href="<?php echo site_url('Bahan/StokOpname'); ?>">
+                          <i class="icon_house_alt"></i>
+                          <span>Stok Opname</span>
+                      </a>
+            </li>
           </ul>
           <!-- sidebar menu end-->
         </div>
@@ -203,7 +209,7 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
               <ul class="sub">
-                <li><a class="" href="<?php echo site_url('Penjualan'); ?>">P O S</a></li>
+                <li><a class="" href="<?php echo site_url('Penjualan/showpenjualan'); ?>">P O S</a></li>
               </ul>
             </li>
             <li class="sub-menu">
@@ -250,6 +256,8 @@
               <ul class="sub">
                 <li><a class="" href="<?php echo site_url('LaporanPenjualanPOS'); ?>">Laporan Penjualan POS</a></li>
                 <li><a class="" href="<?php echo site_url('Bahan/kartustok'); ?>">Kartu Stok</a></li>
+                <li><a class="" href="<?php echo site_url('LaporanDistribusiMasuk'); ?>">Distribusi Masuk</a></li>
+                <li><a class="" href="<?php echo site_url('LaporanDistribusiKeluar'); ?>">Distribusi Keluar</a></li>
               </ul>
             </li>
           </ul>

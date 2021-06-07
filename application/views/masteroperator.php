@@ -160,7 +160,7 @@ foreach($datajabatan->result() as $row)
                         <?php 
                             //echo form_input("txtmulaikerja", $tanggalmulai, ['id'=>'txtmulaikerja', 'type'=>'text', 'class'=>'form-control']);
                         ?>
-                        <input type='date' name='txtmulaikerja' id='txtmulaikerja' class='form-control' value='<?php echo date("Y-m-d"); ?>>  
+                        <input type='date' name='txtmulaikerja' id='txtmulaikerja' class='form-control' value='<?php echo $tanggalmulai; ?>'>  
                     </div>
                     <div class=col-md-4>
                         <br><br>

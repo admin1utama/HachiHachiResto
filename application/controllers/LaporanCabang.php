@@ -37,6 +37,7 @@ class LaporanCabang extends CI_Controller {
                 echo "<td class='tengahtulisan'>".$row->tanggalberdiri."</td>";
                 echo "<td class='tengahtulisan'>".$row->nomertelp."</td>";
 				echo "<td class='tengahtulisan'>".$row->jenis."</td>";
+				echo "<td class='tengahtulisan'>".$row->status."</td>";
 			echo "</tr>";
 			$nomer+=1;
 		}

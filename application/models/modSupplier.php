@@ -48,6 +48,12 @@ class modSupplier extends CI_Model {
   public function select_supplier() {
 		//$query = $this->db->get('supplier'); 
 		//return $query; 
+    return $this->db->query("select * from supplier where status='AKTIF' order by namasupplier ASC");
+  }
+
+  public function select_mastersupplier() {
+		//$query = $this->db->get('supplier'); 
+		//return $query; 
     return $this->db->query("select * from supplier order by namasupplier ASC");
   }
 

@@ -86,6 +86,8 @@ class Bahan extends CI_Controller {
 			$harga 		= $this->input->post('txthargabahan'); 
 			$stok 		= $this->input->post('txtstokbahan');
 			$status 	= $this->input->post('txtstatusbahan');
+			$mudahbusuk = 0; 
+			if($this->input->post('chkMudahBusuk')) { $mudahbusuk = 1; }
 
 			$config['upload_path']   = './asset/bahan';      
 			$config['allowed_types'] = 'jpg|png|jpeg|gif'; 
@@ -108,7 +110,7 @@ class Bahan extends CI_Controller {
 				array('required'     =>'Kolom Stok Tidak Boleh Kosong'));
 			if($this->form_validation->run() == TRUE)
 			{
-				$this->modBahan->update_bahan($kodebahan, $namabahan, $satuan, $jenis, $harga, $stok, $foto, $status);
+				$this->modBahan->update_bahan($kodebahan, $namabahan, $satuan, $jenis, $harga, $stok, $foto, $status,$mudahbusuk);
 
 				$data['databahan'] = $this->modBahan->select_kategori_bahanbaku();
 				$this->load->view('showbahan',$data); 
@@ -235,6 +237,7 @@ class Bahan extends CI_Controller {
 			echo "<tr>";
 				echo "<td>".$nomer."</td>";
 				echo "<td>".$row->namabahan."</td>";
+				echo "<td>".$row->satuan."</td>";
 				echo "<td>".$row->qty."</td>";	
 				echo "<td><button onclick=hapusbom('".$row->kodebom."') type='button' class='btn btn-danger'><i class='icon_trash_alt'></i></button></td>";
 			echo "</tr>";
@@ -274,5 +277,46 @@ class Bahan extends CI_Controller {
 			$this->form_validation->set_message("ceknamabahan", "Nama Bahan Tidak boleh kembar"); 
 			return false; 
 		}
+	}
+
+	public function getStok()
+	{
+		$idbahan = $this->input->post("idbahan");
+		$bhnbaku = $this->modBahan->selectsatuanBOM($idbahan);
+
+		foreach($bhnbaku->result() as $row)
+		{
+			echo "<tr>";
+				echo "<td><h4 style='font-weight: bold;'>Satuan : </h4></td><td><h4 style='font-weight: bold;'>".$row->satuan."</h4></td>";	
+			echo "</tr>"; 
+		}
+	}
+
+	public function StokOpname() 
+	{
+		$params['kodecabang'] = 'KC1'; 
+		$params['datastok']   = $this->modBahan->compare_stok_gudang_dan_kartustok('KC1'); 
+		$params['datacabang'] = $this->modCabang->select_cabang(); 
+		$this->load->view('stokopname', $params); 
+	}
+
+	public function poststokopname()
+	{
+		if($this->input->post("btnShow")) {
+			$params['datastok']   = $this->modBahan->compare_stok_gudang_dan_kartustok($this->input->post('txtkodecabang')); 
+			$params['datacabang'] = $this->modCabang->select_cabang(); 
+			$params['kodecabang'] = $this->input->post('txtkodecabang'); 
+			$this->load->view('stokopname', $params); 
+		}
+	}
+
+	public function revisiDataKartuStok() 
+	{
+		$kodecabang 	= $this->input->post('kodecabang'); 
+		$kodebahan	 	= $this->input->post('kodebahan'); 
+		$stokcabang  	= $this->input->post('stokcabang'); 
+		$stokkartu		= $this->input->post('stokkartu'); 
+
+		$this->modBahan->revisidata($kodecabang, $kodebahan, $stokcabang, $stokkartu); 
 	}
 }

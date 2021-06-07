@@ -38,6 +38,11 @@ class Konversi extends CI_Controller {
 
 	}
 
+	public function getSatuanBahan() {
+		$idbahanbaku 	= $this->input->post("idbahanbaku");
+		echo $this->modKonversi->select_satuan_bykodebahan($idbahanbaku); 
+	}
+
 	public function getDetailKonversi()
 	{
 		$idbahanbaku 	= $this->input->post("idbahanbaku");

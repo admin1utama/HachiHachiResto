@@ -12,6 +12,15 @@
   <title>Hachi Hachi Resto System Administration</title>
 </head>
 
+<?php
+  $arrcabang = array();
+  foreach($datacabang->result() as $row)
+  {
+    $arrcabang[$row->kodecabang] = $row->namacabang;
+  }
+?>
+
+
 <body>
   <!-- container section start -->
   <section id="container" class="">
@@ -39,16 +48,21 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
+                                    <label class="judullabel">Cabang :</label><br>
+                                    <?php
+                                        echo form_dropdown("dropCabang",$arrcabang, "" , ['id'=>'dropCabang', 'type'=>'text', 'class'=>'form-control']);
+                                    ?>
+                                    <br>
                                     <label class='judullabel'>Awal : </label>
                                     <?php
-                                        echo "<input type='date' name='txttglawal' id='txttglawal' class='form-control'>"; 
+                                        echo "<input type='date' value='".date("Y-m-d")."' name='txttglawal' id='txttglawal' class='form-control'>"; 
                                         //echo form_input("txttglawal", "", ['id'=>'txttglawal', 'type'=>'text', 'class'=>'form-control']);
                                         echo "<br>";
                                     ?>
                                     <label class='judullabel'>Akhir : </label>
                                     <?php
-                                        echo "<input type='date' name='txttglakhir' id='txttglakhir' class='form-control'>"; 
+                                        echo "<input type='date' value='".date("Y-m-d")."' name='txttglakhir' id='txttglakhir' class='form-control'>"; 
                                         //echo form_input("txttglakhir", "", ['id'=>'txttglakhir', 'type'=>'text', 'class'=>'form-control']);
                                         echo "<br>";
                                          echo form_button("btnLihat", "Lihat", ['id'=>'btnLihat', 'class'=>'btn btn-lg btn-success','onclick'=>'lihattransaksi()']);  
@@ -95,12 +109,14 @@
 
   function lihattransaksi()
   {
+    var kodecabang = $("#dropCabang").val(); 
     var tglawal = $("#txttglawal").val();
     var tglakhir = $("#txttglakhir").val();
+    //alert(kodecabang); 
     //alert(tglawal);
     //alert(tglakhir);
     $.post(myurl + "/LaporanDistribusiMasuk/getFilter",
-      { tglawal:tglawal, tglakhir:tglakhir },
+      { kodecabang: kodecabang, tglawal:tglawal, tglakhir:tglakhir },
       function(res){
         //alert(res);
         if(res == "") { $("#divKanan").html("no transaction"); }

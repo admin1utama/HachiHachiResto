@@ -13,7 +13,7 @@ class modLaporanBahanBaku extends CI_Model {
 
 	public function selectcabang()
 	{
-		return $this->db->query("select * from cabang order by namacabang ASC");
+		return $this->db->query("select * from cabang where status = 'AKTIF' order by namacabang ASC");
 	}
 
 	/*public function selectstok($kodebahan)
@@ -31,7 +31,7 @@ class modLaporanBahanBaku extends CI_Model {
 		}
 		else if($kodebahan != "SEMUA" && $kodecabangg == "SEMUA")
 		{
-			return $this->db->query("select stokcabang.*, bahan.namabahan, cabang.namacabang from stokcabang, bahan,cabang where stokcabang.kodebahan = $kodebahan and stokcabang.kodebahan = bahan.kodebahan and stokcabang.kodecabang = cabang.kodecabang");
+			return $this->db->query("select stokcabang.*, bahan.namabahan, cabang.namacabang from stokcabang, bahan,cabang where stokcabang.kodebahan = $kodebahan and stokcabang.kodebahan = bahan.kodebahan and stokcabang.kodecabang = cabang.kodecabang and cabang.status = 'AKTIF'");
 		}
 		else if($kodebahan == "SEMUA" && $kodecabangg != "SEMUA")
 		{
@@ -39,7 +39,7 @@ class modLaporanBahanBaku extends CI_Model {
 		}
 		else
 		{
-			return $this->db->query("select stokcabang.*, cabang.namacabang from stokcabang,cabang where stokcabang.kodecabang = cabang.kodecabang");
+			return $this->db->query("select stokcabang.*, cabang.namacabang from stokcabang,cabang where stokcabang.kodecabang = cabang.kodecabang  and cabang.status = 'AKTIF'");
 		}
 	}	
 	

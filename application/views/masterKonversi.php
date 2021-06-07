@@ -94,8 +94,8 @@
                             <div class=col-md-3>
                             <label class='judullabel'>Satuan Tujuan :</label><br>
                                 <?php 
-                                    //echo form_input("txtKedua", "", ['id'=>'txtKedua', 'type'=>'text', 'class'=>'form-control']);
-                                    echo form_dropdown("txtKudua", $arrKonversi2, "" , ['id'=>'txtKedua', 'type'=>'text', 'class'=>'form-control']);
+                                    echo form_input("txtKedua", "", ['id'=>'txtKedua', 'type'=>'text', 'class'=>'form-control', 'readonly'=>'readonly']);
+                                    // echo form_dropdown("txtKedua", $arrKonversi2, "" , ['id'=>'txtKedua', 'type'=>'text', 'class'=>'form-control']);
                                 ?>
                             </div> 
                         </div>
@@ -178,6 +178,12 @@
       function(res){
         //alert(res);
         $("#divKanan").html(res);
+      }
+    );
+    $.post(myurl + "/Konversi/getSatuanBahan",
+      { idbahanbaku:idbahanbaku },
+      function(res){
+        $("#txtKedua").val(res);
       }
     );
   };

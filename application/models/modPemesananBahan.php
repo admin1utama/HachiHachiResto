@@ -17,7 +17,7 @@ class modPemesananBahan extends CI_Model {
 	
     public function select_pemesanan() 
     {
-        return $this->db->query("select hpembelian.nomernota, hpembelian.tanggal, hpembelian.kodesupplier, hpembelian.subtotal, hpembelian.status, supplier.namasupplier, supplier.kota, count(dpembelian.notadetail) as jumitem from hpembelian, dpembelian, supplier where hpembelian.kodesupplier = supplier.kodesupplier and hpembelian.nomernota = dpembelian.nomernota and hpembelian.status = 'AKTIF' group by hpembelian.nomernota, hpembelian.tanggal, hpembelian.kodesupplier, hpembelian.subtotal, hpembelian.status, supplier.namasupplier, supplier.kota");
+        return $this->db->query("select hpembelian.nomernota, hpembelian.tanggal, hpembelian.kodesupplier, hpembelian.subtotal, hpembelian.status, supplier.namasupplier, supplier.kota, count(dpembelian.notadetail) as jumitem from hpembelian, dpembelian, supplier where hpembelian.kodesupplier = supplier.kodesupplier and hpembelian.nomernota = dpembelian.nomernota and hpembelian.status = 'AKTIF' group by hpembelian.nomernota, hpembelian.tanggal, hpembelian.kodesupplier, hpembelian.subtotal, hpembelian.status, supplier.namasupplier, supplier.kota order by tanggal DESC");
     }
     
     public function selectdetailsupp($idsupplier)

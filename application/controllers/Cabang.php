@@ -14,7 +14,7 @@ class Cabang extends CI_Controller {
 	}
 	public function index()
 	{
-		$data['datacabang'] = $this->modCabang->select_cabang();
+		$data['datacabang'] = $this->modCabang->select_all_cabang();
 		$this->load->view('showcabang', $data);
 	}
 
@@ -136,7 +136,7 @@ class Cabang extends CI_Controller {
 			$param['namacabang'] 		= "";
 			$param['alamat'] 			= "";
 			$param['kota'] 				= "";
-			$param['tanggalberdiri'] 	= "";
+			$param['tanggalberdiri'] 	= date("Y-m-d");
 			$param['nomertelp'] 		= "";
 			$param['jenis'] 			= "";
 			$param['status'] 			= "";

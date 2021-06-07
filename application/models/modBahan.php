@@ -37,7 +37,7 @@ class modBahan extends CI_Model {
 		}
     }
 
-    public function update_bahan($kodebahan, $namabahan, $satuan, $jenis, $harga, $stok, $foto, $status) {
+    public function update_bahan($kodebahan, $namabahan, $satuan, $jenis, $harga, $stok, $foto, $status,$mudahbusuk) {
 		$data = array(
 			'namabahan' => strtoupper($namabahan),
 			'satuan' 	=> strtoupper($satuan),
@@ -45,7 +45,8 @@ class modBahan extends CI_Model {
 			'harga' 	=> $harga,
 			'stok' 		=> $stok,
 			'foto' 		=> $foto,
-			'status'	=> strtoupper($status)
+			'status'	=> strtoupper($status),
+			'mudahbusuk' => $mudahbusuk
 		);
 		$this->db->where('kodebahan', $kodebahan);
         $this->db->update('bahan', $data);
@@ -54,7 +55,7 @@ class modBahan extends CI_Model {
 	public function select_kategori_bahanbaku() {
 		/*$query = $this->db->get('bahan'); 
 		return $query;*/
-		return $this->db->query("select * from bahan where status ='AKTIF' order by namabahan ASC"); 
+		return $this->db->query("select * from bahan order by namabahan ASC"); 
 	}
 
 	public function selectBahanByKode($kodebahan) {
@@ -65,17 +66,17 @@ class modBahan extends CI_Model {
 
 	public function BomSelectBahanJadi()
 	{
-		return $this->db->query("select * from bahan where jenis = 'Bahan Jadi'"); 
+		return $this->db->query("select * from bahan where jenis = 'Bahan Jadi' order by namabahan ASC"); 
 	}
 
 	public function BomSelectBahanBaku()
 	{
-		return $this->db->query("select * from bahan where jenis = 'Bahan Baku' order by namabahan ASC"); 
+		return $this->db->query("select * from bahan where jenis = 'Bahan Baku' and status = 'AKTIF' order by namabahan ASC"); 
 	}
 
 	public function BomSelectBahanBaku_ByBahanJadi($idbahanjadi)
 	{
-		return $this->db->query("select bom.*, bahan.namabahan from bom, bahan where bom.kodebahanjadi = $idbahanjadi and bom.kodebahanbaku = bahan.kodebahan"); 
+		return $this->db->query("select bom.*, bahan.namabahan,bahan.satuan from bom, bahan where bom.kodebahanjadi = $idbahanjadi and bom.kodebahanbaku = bahan.kodebahan"); 
 	}	
 
 	public function insert_bom($textbahanjadi, $textbahanbaku,$textqty)
@@ -150,5 +151,72 @@ class modBahan extends CI_Model {
 	public function selectbuatheadernamabahan($kodebahan,$kodecabangg)
 	{
 		return $this->db->query("select kartustok.*, bahan.namabahan, bahan.jenis, cabang.namacabang from kartustok, bahan,cabang where kartustok.kodebahan = $kodebahan and kartustok.kodebahan = bahan.kodebahan and kartustok.kodecabang = '$kodecabangg' and kartustok.kodecabang = cabang.kodecabang limit 1");
+	}
+
+	public function selectsatuanBOM($idbahan)
+    {
+        $query = $this->db->where('kodebahan', $idbahan)
+                            ->get('bahan'); 
+        return $query; 
+    }
+
+	public function compare_stok_gudang_dan_kartustok($kodecabang)
+	{
+		$query = $this->db->query("select bahan.*, stokcabang.stok from bahan, stokcabang where bahan.kodebahan = stokcabang.kodebahan and stokcabang.kodecabang = '$kodecabang'");
+		
+		$arr = []; 	$jumarr = 0; 
+		foreach($query->result() as $row) {
+			$arr[$jumarr] = $row; 
+			$query2 = $this->db->query("select * from kartustok where kodebahan = '".$row->kodebahan."' and kodecabang = '$kodecabang' order by kodekartustok desc limit 1");
+			foreach($query2->result() as $row2) {
+				$arr[$jumarr]->kartustok = $row2;
+			}
+			$jumarr+=1; 
+		}
+
+		return $arr; 
+	}
+
+	public function revisidata($kodecabang, $kodebahan, $stokcabang, $stokkartu)
+	{
+		//insert into kartu stok 
+		$qrykartu = $this->db->query("select * from kartustok where kodecabang = '$kodecabang' and kodebahan = '$kodebahan' order by kodekartustok desc limit 1");
+		foreach($qrykartu->result() as $rowkartu) {
+			$tanggal  = $rowkartu->tanggal;
+			$hargaavg = $rowkartu->hargaavg; 
+		}
+
+		if($stokcabang > $stokkartu) {
+			$data = array(
+				'tanggal'     => $tanggal,
+				'kodecabang'  => $kodecabang,
+				'kodebahan'   => $kodebahan,
+				'jenis'       => "REVISI_DATA",
+				'noref'       => "0",
+				'stokawal'    => $stokkartu,
+				'debet'       => ($stokcabang - $stokkartu),
+				'kredit'      => 0,
+				'stokakhir'   => $stokcabang,
+				'hargatrans'  => $hargaavg,
+				'hargaavg'    => $hargaavg
+			);
+			$this->db->insert('kartustok', $data);	
+		}
+		else if($stokcabang < $stokkartu) {
+			$data = array(
+				'tanggal'     => $tanggal,
+				'kodecabang'  => $kodecabang,
+				'kodebahan'   => $kodebahan,
+				'jenis'       => "REVISI_DATA",
+				'noref'       => "0",
+				'stokawal'    => $stokkartu,
+				'debet'       => 0,
+				'kredit'      => ($stokkartu - $stokcabang),
+				'stokakhir'   => $stokcabang,
+				'hargatrans'  => $hargaavg,
+				'hargaavg'    => $hargaavg
+			);
+			$this->db->insert('kartustok', $data);	
+		}		
 	}
 }

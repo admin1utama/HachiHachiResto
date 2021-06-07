@@ -137,7 +137,7 @@
                         <?php 
                             //echo form_input("txttglberdiri", $tanggalberdiri, ['id'=>'txttglberdiri', 'type'=>'text', 'class'=>'form-control']);
                         ?>
-                        <input type='date' name='txttglberdiri' id='txttglberdiri' class='form-control' value='<?php echo date("Y-m-d"); ?>>     
+                        <input type='date' name='txttglberdiri' id='txttglberdiri' class='form-control' value='<?php echo $tanggalberdiri; ?>'>     
                     </div>
                     <div class="col-md-6">
                         <br><br>

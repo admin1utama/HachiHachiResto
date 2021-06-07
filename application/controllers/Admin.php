@@ -117,7 +117,7 @@ class Admin extends CI_Controller {
 			$param['username'] 			= "";
 			$param['password'] 			= "";
 			$param['nama'] 				= "";
-			$param['tanggalmulai'] 		= "";
+			$param['tanggalmulai'] 		= date("Y-m-d");
 			$param['noidentitas'] 		= "";
 			$param['nomertelp'] 		= "";
 			$param['jabatan'] 		= "";

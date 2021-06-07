@@ -130,10 +130,14 @@ class PemesananBahan extends CI_Controller {
 					echo "1-";
 					//$foto = $row->foto;
 				}
+				// get nilai konversi 
+				$nilaikonversi = $this->modPemesananBahan->getNilaiKonversi($txtkodebahanbaku, $cbsatuan, $satuan); 
+
 				$arr [0] [2] = $nama;
 				$arr [0] [3] = $satuan;
 				$arr [0] [4] = $stok;
 				$arr [0] [5] = $harga;
+				$arr [0] [6] = $nilaikonversi;
 				
 				$this->session->set_userdata ("cart",$arr);
 				$this->load->view('masterPemesanan',$params);
@@ -202,6 +206,24 @@ class PemesananBahan extends CI_Controller {
 		$this->modBahan->insert_bom($textbahanjadi, $textbahanbaku,$textqty);
 		echo "success";
 	}
+
+	public function getStok_bycabang()
+	{
+		$kodecabang = $this->input->post('kodecabang'); 
+		$idbahan = $this->input->post("idbahan");
+		$bhnbaku = $this->modPemesananBahan->selectstok_bygudang($kodecabang, $idbahan);
+
+		foreach($bhnbaku->result() as $row)
+		{
+			echo "<tr>";
+				echo "<td><h4 style='font-weight: bold;'>Stok : </h4></td><td><h4 style='font-weight: bold;'>".$row->stok."</h4></td>";	
+			echo "</tr>"; 
+			echo "<tr>"; 
+				echo "<td><h4 style='font-weight: bold;'>Satuan : </h4></td><td><h4 style='font-weight: bold;'>".$row->satuan."</h4></td>";	
+			echo "</tr>";
+		}
+	}
+
 
 	public function getStok()
 	{

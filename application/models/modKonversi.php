@@ -7,8 +7,18 @@ class modKonversi extends CI_Model {
 	}
 		
 	public function select_satuan() {
-		$query = $this->db->get('satuan'); 
-		return $query; 
+		//$query = $this->db->get('satuan'); 
+		//return $query;
+		return $this->db->query("select * from satuan order by namasatuan ASC");  
+	}
+
+	public function select_satuan_bykodebahan($kodebahan) {
+		//$query = $this->db->get('satuan'); 
+		//return $query;
+		$query = $this->db->query("select * from bahan where kodebahan = '$kodebahan'");
+		foreach($query->result() as $row) {
+			echo $row->satuan; 
+		}
 	}
 
 	public function select_konversi_satuan() {

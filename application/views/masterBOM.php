@@ -75,14 +75,27 @@
                                 </div>
                             </div>
                         </div>
-                        <br><br><br>
+                        <br>
                         <div class="row">
                             <div class=col-md-8>
                                 <label class='judullabel'>Bahan Baku :</label><br>
                                 <?php 
-                                    echo form_dropdown("dropBahanBaku", $arrbahanbaku, "" , ['id'=>'dropBahanBaku', 'type'=>'text', 'class'=>'form-control']);
+                                    echo form_dropdown("dropBahanBaku", $arrbahanbaku, "" , ['id'=>'dropBahanBaku', 'type'=>'text', 'class'=>'form-control','onchange'=>'lihatsatuan()']);
                                 ?>
                             </div>
+                        </div>
+                        <br>
+                        <!-- ini buat stok-->
+                        <br>
+                        <div class="card" style='margin-left: 0%; width: 60%; background-color: #EAEAB3; padding: 10px; border-radius: 10px;'>
+                          <div class="card-body">
+                            <p class="card-text">
+                              <table class="table">
+                                <tbody id="divStok">
+                                </tbody>
+                              </table>                      
+                            </p>
+                          </div>
                         </div>
                         <br>
                         <div class="row">
@@ -96,7 +109,6 @@
                                 ?>
                             </div> 
                         </div>
-
                         <br><br>
                        <?php 
                             echo form_button("btnSimpanBOM", "Tambah BOM", ['id'=>'btnSimpanBOM', 'class'=>'btn btn-primary btn-lg', 'onclick'=>'insertBom()']);
@@ -110,6 +122,7 @@
                   <tr>
                     <th>Nomer</th>
                     <th>Bahan Baku</th>
+                    <th>Satuan</th>
                     <th>Qty</th>
                   </tr>
                 </thead>
@@ -168,6 +181,17 @@
     );
   };
 
+  function lihatsatuan()
+  {
+    var idbahan = $("#dropBahanBaku").val();
+    $.post(myurl + "/Bahan/getStok",
+      { idbahan:idbahan },
+      function(res){
+        $("#divStok").html(res);
+      }
+    );
+  };
+
   function insertBom()
   {
     //alert("res");
@@ -193,6 +217,7 @@
 
   $(document).ready(function(){
     lihatbom();
+    lihatsatuan();
   });
   </script>
 

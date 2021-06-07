@@ -8,12 +8,12 @@ class modPenjualan extends CI_Model {
     
     public function selectmember()
 	{
-        return $this->db->query("select * from member"); 
+        return $this->db->query("select * from member order by namamember ASC"); 
     }
 
     public function select_penjualan() 
     {
-        return $this->db->query("select hjual.nomernota, hjual.tanggal, hjual.username, hjual.kodecabang, hjual.kodemember, hjual.grandtotal, member.namamember, member.kotamember, sum(djual.qty) as jumitem from hjual, djual, member where hjual.kodemember = member.kodemember and hjual.nomernota = djual.nomernota group by hjual.nomernota, hjual.tanggal, hjual.username, hjual.kodecabang, hjual.kodemember, hjual.grandtotal, member.namamember, member.kotamember");
+        return $this->db->query("select hjual.nomernota, hjual.tanggal, hjual.username, hjual.kodecabang, hjual.kodemember, hjual.grandtotal, member.namamember, member.kotamember, sum(djual.qty) as jumitem from hjual, djual, member where hjual.kodemember = member.kodemember and hjual.nomernota = djual.nomernota group by hjual.nomernota, hjual.tanggal, hjual.username, hjual.kodecabang, hjual.kodemember, hjual.grandtotal, member.namamember, member.kotamember order by nomernota DESC");
     }
 
     public function select_header_penjualan_bynomernota($nomernota) 
@@ -33,7 +33,7 @@ class modPenjualan extends CI_Model {
 
     public function selectbahanjadi()
 	{
-        return $this->db->query("select * from bahan where jenis ='BAHAN JADI'"); 
+        return $this->db->query("select * from bahan where jenis ='BAHAN JADI' order by namabahan ASC"); 
     }
 
     public function selectdetailmember($idmember)

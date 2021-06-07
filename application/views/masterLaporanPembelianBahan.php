@@ -41,13 +41,13 @@
                             <div class="col-md-3">
                                     <label class='judullabel'>Awal : </label>
                                     <?php
-                                        echo "<input type='date' name='txttglawal' id='txttglawal' class='form-control'>"; 
+                                        echo "<input type='date' value='".date("Y-m-d")."' name='txttglawal' id='txttglawal' class='form-control'>"; 
                                         //echo form_input("txttglawal", "", ['id'=>'txttglawal', 'type'=>'text', 'class'=>'form-control']);
                                         echo "<br>";
                                     ?>
                                     <label class='judullabel'>Akhir : </label>
                                     <?php
-                                        echo "<input type='date' name='txttglakhir' id='txttglakhir' class='form-control'>"; 
+                                        echo "<input type='date' value='".date("Y-m-d")."' name='txttglakhir' id='txttglakhir' class='form-control'>"; 
                                         //echo form_input("txttglakhir", "", ['id'=>'txttglakhir', 'type'=>'text', 'class'=>'form-control']);
                                         echo "<br>";
                                          echo form_button("btnLihat", "Lihat", ['id'=>'btnLihat', 'class'=>'btn btn-lg btn-success','onclick'=>'lihattransaksi()']);  

@@ -15,7 +15,7 @@ class Supplier extends CI_Controller {
 	}
 	public function index()
 	{
-		$data['datasupplier'] = $this->modSupplier->select_supplier();
+		$data['datasupplier'] = $this->modSupplier->select_mastersupplier();
 		$this->load->view('showsupplier', $data);
 	}
 
@@ -86,7 +86,7 @@ class Supplier extends CI_Controller {
 
 			$this->modSupplier->update_supplier($kodesupplier, $namasupplier, $contactperson, $nomertelp, $alamat, $kota, $status);
 
-			$data['datasupplier'] = $this->modSupplier->select_supplier();
+			$data['datasupplier'] = $this->modSupplier->select_mastersupplier();
 			$this->load->view('showsupplier', $data);  
         }
         else if($this->input->post('btnHapusOutlet')){
@@ -107,9 +107,6 @@ class Supplier extends CI_Controller {
 
 			$this->load->view('mastersupplier', $param);
 		}
-
-		
-		
 	}
 
 	public function detailsupplier()

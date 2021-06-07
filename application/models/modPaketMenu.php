@@ -36,6 +36,10 @@ class modPaketMenu extends CI_Model {
 	public function getDataPaket($kodepaket) {
 		return $this->db->query("select * from paketmenu where kodepaket = '$kodepaket'");  
     }
+
+	public function select_all_without_detail() {
+		return $this->db->query("select paketmenu.kodepaket, paketmenu.namapaket, paketmenu.harga, paketmenu.status from paketmenu order by paketmenu.namapaket ASC");  
+    }
 	
 	public function select_all() {
 		//$query = $this->db->get('paketmenu'); 

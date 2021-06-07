@@ -39,18 +39,19 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class=col-md-6>
+                                <div class=col-md-10>
                                 <div class="card-body">
                                     <table class="table table-splitted">
                                     <thead>
                                         <tr>
                                         <!-- <th class="tengahtulisan">Kode Bahan</th> -->
-                                        <th class="tengahtulisan">Nama Cabang</th>
-                                        <th class="tengahtulisan">Alamat</th>
-                                        <th class="tengahtulisan">Kota</th>
-                                        <th class="tengahtulisan">Tanggal Berdiri</th>
-                                        <th class="tengahtulisan">Nomer Telepon</th>
-                                        <th class="tengahtulisan">Jenis</th>
+                                          <th class="tengahtulisan">Nama Cabang</th>
+                                          <th class="tengahtulisan">Alamat</th>
+                                          <th class="tengahtulisan">Kota</th>
+                                          <th class="tengahtulisan">Tanggal Berdiri</th>
+                                          <th class="tengahtulisan">Nomer Telepon</th>
+                                          <th class="tengahtulisan">Jenis</th>
+                                          <th class="tengahtulisan">Status</th>
                                         </tr>
                                         <?php
                                         foreach($cetakdata->result() as $row)
@@ -63,6 +64,7 @@
                                                 echo "<td class='tengahtulisan'>".$row->tanggalberdiri."</td>";
                                                 echo "<td class='tengahtulisan'>".$row->nomertelp."</td>";
                                                 echo "<td class='tengahtulisan'>".$row->jenis."</td>";
+                                                echo "<td class='tengahtulisan'>".$row->status."</td>";
                                             echo "</tr>";
                                             //$nomer+=1;
                                         }

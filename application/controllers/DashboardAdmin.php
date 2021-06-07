@@ -31,7 +31,7 @@ class DashboardAdmin extends CI_Controller {
 		foreach($dtcabang->result() as $row)
 		{
 			echo "<tr>";
-				echo "<td>".$row->namabahan."</td>";
+				echo "<td>".$row->namabahan." ( ".$row->satuan." )</td>";
 				echo "<td>".$row->stok."</td>";	
 			echo "</tr>";
         }

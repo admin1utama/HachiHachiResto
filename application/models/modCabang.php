@@ -58,10 +58,17 @@ class modCabang extends CI_Model {
         $this->db->where('kodecabang', $kodecabang);
         $this->db->delete('cabang');
     }
+
+    public function select_all_cabang() {
+      //$query = $this->db->get('cabang'); 
+      //return $query;
+      return $this->db->query("select * from cabang"); 
+    }
   
     public function select_cabang() {
-      $query = $this->db->get('cabang'); 
-      return $query; 
+      //$query = $this->db->get('cabang'); 
+      //return $query;
+      return $this->db->query("select * from cabang where status = 'AKTIF'"); 
     }
     
     public function selectCabangByKode($kodecabang) {
